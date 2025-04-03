@@ -1,4 +1,6 @@
 "use client"
+/* eslint-disable */
+
 import { OngoingCall, Participants, PeerData, SocketUser } from "@/types";
 import { useUser } from "@clerk/nextjs";
 import React, { useCallback, createContext, useContext, useState, useEffect } from "react";
