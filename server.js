@@ -3,6 +3,7 @@ import next from "next";
 import { Server } from "socket.io";
 import onCall from "./socket-events/onCall.js";
 import onwebrtcSignal from "./socket-events/onwebrtcSignal.js";
+import onHangup from "./socket-events/onHangup.js";
 
 const dev = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
@@ -31,7 +32,7 @@ app.prepare().then(() => {
     });
   }
 
-  console.log("Updated Online Users:", onlineUsers);
+  // console.log("Updated Online Users:", onlineUsers);
   io.emit("getUsers", onlineUsers); // Emit AFTER updating `onlineUsers`
 });
 ;
@@ -50,6 +51,8 @@ app.prepare().then(() => {
       socket.on('call', onCall);
       
       socket.on('webrtcSignal', onwebrtcSignal)
+
+      socket.on('hangup',onHangup )
     
   });
 

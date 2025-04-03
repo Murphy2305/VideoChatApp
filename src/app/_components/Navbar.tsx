@@ -12,7 +12,7 @@ const Navbar = () => {
     const router = useRouter();
 
     return (
-        <header className="bg-white  dark:bg-gray-900 ">
+        <header className="bg-white  dark:bg-gray-900 border-b border-gray-700">
             <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-14 items-center justify-between">
                     {/* Logo */}

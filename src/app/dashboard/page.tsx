@@ -8,16 +8,14 @@ import VideoCall from './_components/VideoCall'
 const page = () => {
   return (
     <>
-    <Navbar/>
-    <div className="flex">
-      <UserList/>
-      <VideoCall/>
-            <CallNotification/>
-
-    </div>
-      
+      <Navbar />
+      <div className="flex h-screen">
+        <UserList />
+        <VideoCall />
+        <CallNotification />
+      </div>
     </>
   )
 }
 
-export default page
+export default page;

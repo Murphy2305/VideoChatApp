@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { PhoneIncoming, PhoneOff } from "lucide-react";
 
 const CallNotification = () => {
-  const { ongoingCall ,handleJoinCall } = useSocket();
+  const { ongoingCall ,handleJoinCall, hangUpCall } = useSocket();
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -57,7 +57,10 @@ const CallNotification = () => {
           </Button>
           <Button
             className="bg-red-600 hover:bg-red-500 text-white p-3 rounded-full shadow-lg"
-            onClick={() => audioRef.current?.pause()}
+            onClick={() => {
+              audioRef.current?.pause();
+              hangUpCall({ongoingCall : ongoingCall ? ongoingCall : null, isEmitHangUp: true} );
+            }}
           >
             <PhoneOff className="w-6 h-6" />
           </Button>

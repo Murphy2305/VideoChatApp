@@ -10,7 +10,9 @@ interface iSocketContext {
   ongoingCall: OngoingCall | null;
   handleCall: (user: SocketUser) => void;
   handleJoinCall: (ongoingCall: OngoingCall) => void;
+  hangUpCall : (data : {ongoingCall? : OngoingCall | null , isEmitHangUp : boolean}) =>void;
   localStream: MediaStream | null;
+  isCallEnded : boolean;
   peer : PeerData | null;
 }
 
@@ -25,6 +27,7 @@ export const SocketContextProvider = ({ children }: { children: React.ReactNode 
   const [ongoingCall, setOngoingCall] = useState<OngoingCall | null>(null);
   const [localStream, setLocalStream] = useState<MediaStream | null>(null);
   const [peer, setPeer] = useState<PeerData | null>(null);
+  const [isCallEnded,setIsCallEnded] = useState(false);
 
   const currSocketUser = onlineUsers?.find((u) => u.userId === user?.id);
 
@@ -67,9 +70,27 @@ export const SocketContextProvider = ({ children }: { children: React.ReactNode 
 
 
 
-  const hangUpCall = useCallback(() => {
+  const hangUpCall = useCallback((data : {ongoingCall? : OngoingCall | null , isEmitHangUp : boolean}) => {
     
-    
+    if(socket && user && data?.ongoingCall && data?.isEmitHangUp)
+    {
+        socket.emit('hangup',{
+          ongoingCall : data.ongoingCall,
+          userHangingupId : user.id
+        })
+
+
+    }
+
+    setOngoingCall(null);
+    setPeer(null);
+    if(localStream)
+    {
+      localStream.getTracks().forEach((track) => track.stop());
+      setLocalStream(null)
+    }
+
+    setIsCallEnded(true);
 
 
 
@@ -77,7 +98,7 @@ export const SocketContextProvider = ({ children }: { children: React.ReactNode 
 
 
 
-  }, []);
+  }, [socket,user,localStream]);
 
   const createPeer = useCallback(
     (stream: MediaStream | null, initiator: boolean) => {
@@ -98,7 +119,7 @@ export const SocketContextProvider = ({ children }: { children: React.ReactNode 
       const peer = new Peer({
         stream: stream || undefined,
         initiator,
-        trickle: true,
+        trickle: false,
         config: { iceServers },
       });
 
@@ -111,7 +132,7 @@ export const SocketContextProvider = ({ children }: { children: React.ReactNode 
 
 
       peer.on("error", console.error);
-      peer.on("close", () => hangUpCall());
+      peer.on("close", () => hangUpCall({ongoingCall:null,isEmitHangUp:false}));
 
       const rtcPeerConnection: RTCPeerConnection = (peer as any)._pc;
 
@@ -122,7 +143,7 @@ export const SocketContextProvider = ({ children }: { children: React.ReactNode 
         ) {
           console.log('hangup createpeer');
           
-          hangUpCall();
+          hangUpCall({ongoingCall:null,isEmitHangUp:false});
         }
       };
 
@@ -194,6 +215,7 @@ export const SocketContextProvider = ({ children }: { children: React.ReactNode 
   const handleJoinCall = useCallback(
     async (ongoingCall: OngoingCall) => {
       
+      setIsCallEnded(false);
       setOngoingCall((prev) => 
           {
             if(prev)
@@ -280,6 +302,8 @@ export const SocketContextProvider = ({ children }: { children: React.ReactNode 
   const handleCall = useCallback(
     async (user: SocketUser) => {
 
+      setIsCallEnded(false);
+
       if (!currSocketUser || !socket) return;
       const stream = await getUserStream();
 
@@ -291,11 +315,11 @@ export const SocketContextProvider = ({ children }: { children: React.ReactNode 
         }
 
       const participants = { caller: currSocketUser, receiver: user };
-      setOngoingCall({ 
-        participants, 
-        isRinging: false
-       }
-      );
+        setOngoingCall({ 
+          participants, 
+          isRinging: false
+        }
+        );
       socket.emit("call", participants);
     },
     [currSocketUser, socket, ongoingCall]
@@ -376,26 +400,33 @@ export const SocketContextProvider = ({ children }: { children: React.ReactNode 
 
     socket.on('incomingCall', onIncomingCall);
     socket.on('webrtcSignal', completePeerConnection);
+    socket.on('hangup', hangUpCall);
   
     return () => {
       socket.off('incomingCall', onIncomingCall);
       socket.off('webrtcSignal', completePeerConnection);
+      socket.off('hangup', hangUpCall);
+
     };
   }, [user, isSocketConnected, socket, onIncomingCall, completePeerConnection]);
 
 
-
   useEffect(() => {
-  return () => {
-    if (peer) {
-      peer.peerConnection.destroy();
-      setPeer(null);
-    }
-    if (socket === null) return;
+    let timeout : ReturnType<typeof setTimeout>
 
-    socket.disconnect();
-  };
-}, []);
+    if(isCallEnded)
+    {
+      timeout = setTimeout(() => {
+        setIsCallEnded(false);
+      }, 2000);
+    }
+  
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [isCallEnded])
+  
+ 
 
 
 
@@ -407,6 +438,8 @@ export const SocketContextProvider = ({ children }: { children: React.ReactNode 
        handleCall,
         ongoingCall, 
         handleJoinCall, 
+        hangUpCall,
+        isCallEnded,
         localStream,
         peer
          }}>
