@@ -229,6 +229,7 @@ export const SocketContextProvider = ({ children }: { children: React.ReactNode 
       if (!stream)
         {
           console.log('could not get stream in handleJoinCall');
+          hangUpCall({ ongoingCall: ongoingCall ? ongoingCall : null, isEmitHangUp: true })
           
           return;
         }

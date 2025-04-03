@@ -48,7 +48,7 @@ const VideoCall = () => {
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center h-screen border-l border-gray-700 rounded-md">
-      <div className="relative w-full h-[80vh] flex justify-center items-center">
+      <div className="relative w-full h-[800px] flex justify-center items-center">
 
         {peer?.stream && (
           <div ref={peerVideoRef} className="relative w-full h-full flex justify-center items-center">
@@ -67,7 +67,7 @@ const VideoCall = () => {
         )}
 
         {!peer?.stream && localStream && (
-          <motion.div className="relative w-full h-[80vh] flex justify-center items-center rounded-md overflow-hidden">
+          <motion.div className="relative w-full h-[800px] flex justify-center items-center rounded-md overflow-hidden">
             <VideoContainer stream={localStream} isOnCall={isOnCall} isLocalStream={true} />
           </motion.div>
         )}
