@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useAuth, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { LogIn, UserPlus } from "lucide-react";
-import { ModeToggle } from "@/components/Mode/ModeToggle";
 
 const Navbar = () => {
     const { userId } = useAuth();
