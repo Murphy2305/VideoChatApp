@@ -29,44 +29,46 @@ const Hero = () => {
   
   // City data
    const cityData: CityData[] = [
-    // Americas
-    { lat: 40.7128, lng: -74.0060, text: 'New York, USA', color: 'white', size: 1.5 },
-    { lat: 19.4326, lng: -99.1332, text: 'Mexico City, Mexico', color: 'white', size: 1.5 },
-    { lat: -22.9068, lng: -43.1729, text: 'Rio de Janeiro, Brazil', color: 'white', size: 1.5 },
-    { lat: 37.7749, lng: -122.4194, text: 'San Francisco, USA', color: 'white', size: 1.5 },
-    { lat: -34.6037, lng: -58.3816, text: 'Buenos Aires, Argentina', color: 'white', size: 1.5 },
-    { lat: 43.6532, lng: -79.3832, text: 'Toronto, Canada', color: 'white', size: 1.5 },
-    { lat: 4.7110, lng: -74.0721, text: 'Bogotá, Colombia', color: 'white', size: 1.5 },
-    { lat: 41.8781, lng: -87.6298, text: 'Chicago, USA', color: 'white', size: 1.5 },
-    
-    // Europe
-    { lat: 51.5074, lng: -0.1278, text: 'London, UK', color: 'white', size: 1.5 },
-    { lat: 55.7558, lng: 37.6173, text: 'Moscow, Russia', color: 'white', size: 1.5 },
-    { lat: 48.8566, lng: 2.3522, text: 'Paris, France', color: 'white', size: 1.5 },
-    { lat: 41.9028, lng: 12.4964, text: 'Rome, Italy', color: 'white', size: 1.5 },
-  
-    { lat: 47.4979, lng: 19.0402, text: 'Budapest, Hungary', color: 'white', size: 1.5 },
-    
-    // Asia
-    { lat: 26.9124, lng: 75.7873, text: 'Jaipur, India', color: 'white', size: 1.5 },  // Jaipur
-    { lat: 35.6762, lng: 139.6503, text: 'Tokyo, Japan', color: 'white', size: 1.5 },
-    { lat: 28.6139, lng: 77.2090, text: 'New Delhi, India', color: 'white', size: 1.5 },
-    { lat: 31.2304, lng: 121.4737, text: 'Shanghai, China', color: 'white', size: 1.5 },
-    { lat: 25.2048, lng: 55.2708, text: 'Dubai, UAE', color: 'white', size: 1.5 },
-    { lat: 1.3521, lng: 103.8198, text: 'Singapore', color: 'white', size: 1.5 },
-    { lat: 22.3193, lng: 114.1694, text: 'Hong Kong', color: 'white', size: 1.5 },
-    { lat: 18.9667, lng: 72.8333, text: 'Mumbai, India', color: 'white', size: 1.5 },
-    
-    // Africa
-    { lat: -1.2921, lng: 36.8219, text: 'Nairobi, Kenya', color: 'white', size: 1.5 },
-    { lat: 30.0444, lng: 31.2357, text: 'Cairo, Egypt', color: 'white', size: 1.5 },
-    { lat: 33.9716, lng: -6.8498, text: 'Rabat, Morocco', color: 'white', size: 1.5 },
-    { lat: -33.9249, lng: 18.4241, text: 'Cape Town, South Africa', color: 'white', size: 1.5 },
-    
-    // Oceania
-    { lat: -33.8688, lng: 151.2093, text: 'Sydney, Australia', color: 'white', size: 1.5 },
-    { lat: -36.8485, lng: 174.7633, text: 'Auckland, New Zealand', color: 'white', size: 1.5 }
-  ];
+  // Americas
+  { lat: 40.7128, lng: -74.0060, text: 'New York, USA', color: 'white', size: 1.5 },
+  { lat: 19.4326, lng: -99.1332, text: 'Mexico City, Mexico', color: 'white', size: 1.5 },
+  { lat: -22.9068, lng: -43.1729, text: 'Rio de Janeiro, Brazil', color: 'white', size: 1.5 },
+  { lat: 37.7749, lng: -122.4194, text: 'San Francisco, USA', color: 'white', size: 1.5 },
+  { lat: -34.6037, lng: -58.3816, text: 'Buenos Aires, Argentina', color: 'white', size: 1.5 },
+  { lat: 43.6532, lng: -79.3832, text: 'Toronto, Canada', color: 'white', size: 1.5 },
+  { lat: 4.7110, lng: -74.0721, text: 'Bogotá, Colombia', color: 'white', size: 1.5 },
+  { lat: 41.8781, lng: -87.6298, text: 'Chicago, USA', color: 'white', size: 1.5 },
+
+  // Europe
+  { lat: 51.5074, lng: -0.1278, text: 'London, UK', color: 'white', size: 1.5 },
+  { lat: 55.7558, lng: 37.6173, text: 'Moscow, Russia', color: 'white', size: 1.5 },
+  { lat: 48.8566, lng: 2.3522, text: 'Paris, France', color: 'white', size: 1.5 },
+  { lat: 41.9028, lng: 12.4964, text: 'Rome, Italy', color: 'white', size: 1.5 },
+  { lat: 47.4979, lng: 19.0402, text: 'Budapest, Hungary', color: 'white', size: 1.5 },
+
+  // Asia
+  { lat: 26.9124, lng: 75.7873, text: 'Jaipur, India', color: 'white', size: 1.5 },
+  { lat: 35.6762, lng: 139.6503, text: 'Tokyo, Japan', color: 'white', size: 1.5 },
+  { lat: 28.6139, lng: 77.2090, text: 'New Delhi, India', color: 'white', size: 1.5 },
+  { lat: 31.2304, lng: 121.4737, text: 'Shanghai, China', color: 'white', size: 1.5 },
+  { lat: 25.2048, lng: 55.2708, text: 'Dubai, UAE', color: 'white', size: 1.5 },
+  { lat: 1.3521, lng: 103.8198, text: 'Singapore', color: 'white', size: 1.5 },
+  { lat: 22.3193, lng: 114.1694, text: 'Hong Kong', color: 'white', size: 1.5 },
+  { lat: 18.9667, lng: 72.8333, text: 'Mumbai, India', color: 'white', size: 1.5 },
+  { lat: 27.1767, lng: 78.0081, text: 'Agra, India', color: 'white', size: 1.5 },        // Agra
+  { lat: 13.0827, lng: 80.2707, text: 'Chennai, India', color: 'white', size: 1.5 },    // Chennai
+
+  // Africa
+  { lat: -1.2921, lng: 36.8219, text: 'Nairobi, Kenya', color: 'white', size: 1.5 },
+  { lat: 30.0444, lng: 31.2357, text: 'Cairo, Egypt', color: 'white', size: 1.5 },
+  { lat: 33.9716, lng: -6.8498, text: 'Rabat, Morocco', color: 'white', size: 1.5 },
+  { lat: -33.9249, lng: 18.4241, text: 'Cape Town, South Africa', color: 'white', size: 1.5 },
+
+  // Oceania
+  { lat: -33.8688, lng: 151.2093, text: 'Sydney, Australia', color: 'white', size: 1.5 },
+  { lat: -36.8485, lng: 174.7633, text: 'Auckland, New Zealand', color: 'white', size: 1.5 }
+];
+
 
   // Generate random routes between cities
   const generateRoutes = (): RouteData[] => {
