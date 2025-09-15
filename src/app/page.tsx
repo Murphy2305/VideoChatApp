@@ -1,15 +1,12 @@
-"use client"
-import React from 'react'
-import Navbar from './_components/Navbar'
-import Hero from './_components/Hero'
+import dynamic from 'next/dynamic'
 
-const page = () => {
-  return (
-    <>
-    <Navbar/>
-    <Hero/>
-    </>
-  )
+const DynamicPageContent = dynamic(() => import('./_components/PageContent'), {
+  ssr: false,
+  loading: () => <div>Loading...</div>
+})
+
+const Page = () => {
+  return <DynamicPageContent />
 }
 
-export default page
+export default Page
