@@ -121,7 +121,7 @@ export const SocketContextProvider = ({ children }: { children: React.ReactNode 
       const peer = new Peer({
         stream: stream || undefined,
         initiator,
-        trickle: false,
+        trickle: true,
         config: { iceServers },
       });
 
