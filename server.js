@@ -6,7 +6,7 @@ import onwebrtcSignal from "./socket-events/onwebrtcSignal.js";
 import onHangup from "./socket-events/onHangup.js";
 
 const dev = process.env.NODE_ENV !== "production";
-const hostname = "localhost";
+const hostname = "0.0.0.0";
 const port = process.env.PORT || 3000;
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev, hostname, port });
